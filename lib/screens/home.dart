@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/components/topnavbar.dart'; // Import the TopNavbar
+import '../models/components/topnavbar.dart'; 
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -7,20 +7,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopNavbar(), // Use the TopNavbar in the appBar
-      body: SingleChildScrollView( // Wrap the body in a SingleChildScrollView
+      appBar: TopNavbar(), 
+      body: SingleChildScrollView( 
         child: Container(
-          color: Colors.white, // Set background color of the entire screen to white
+          color: Colors.white, 
           child: Column(
             children: [
-              // Banner Image right after the TopNavbar
+              // Banner Image Section
               Image.asset(
-                'assets/images/banner.png', // Replace with your banner image asset
-                width: double.infinity, // Make the image fill the width of the screen
-                height: 200, // Set the height of the banner image
-                fit: BoxFit.cover, // Make the image cover the area
+                'assets/images/banner.png', 
+                width: double.infinity, 
+                height: 200, 
+                fit: BoxFit.cover, 
               ),
-              const SizedBox(height: 20), // Space between the banner and content
+              const SizedBox(height: 20), 
           
               // New Arrivals Section
               const Padding(
@@ -59,27 +59,26 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     const SizedBox(height: 20),
-                    // Add the product image below the description
+                    
                     Image.asset(
-                      'assets/images/jap.webp', // Replace with your hair care image asset
+                      'assets/images/jap.webp', 
                       width: double.infinity,
                       height: 200,
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(height: 20),
-                    // 'Shop Now' Button with updated font color
+                    
                     ElevatedButton(
                       onPressed: () {
-                        // Add your navigation logic here
                       },
                       child: Text(
                         'Shop Now',
                         style: TextStyle(
-                          color: Colors.white, // Change the text color here
+                          color: Colors.white, 
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 183, 136, 136), // Set button background color
+                        backgroundColor: Color.fromARGB(255, 183, 136, 136), 
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                         textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -100,7 +99,7 @@ class NewArrivalsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Hardcoded list of products
+    // List of products
     final List<Product> products = [
       Product(
         imagePath: 'assets/images/airy.webp',
@@ -129,15 +128,15 @@ class NewArrivalsGrid extends StatelessWidget {
     ];
 
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(), // Disable scrolling within grid
-      shrinkWrap: true, // To prevent the grid from taking up unnecessary space
+      physics: NeverScrollableScrollPhysics(), 
+      shrinkWrap: true, 
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Two columns
-        childAspectRatio: 0.75, // Adjust the aspect ratio of each grid item
-        crossAxisSpacing: 10, // Space between columns
-        mainAxisSpacing: 10, // Space between rows
+        crossAxisCount: 2, 
+        childAspectRatio: 0.75, 
+        crossAxisSpacing: 10, 
+        mainAxisSpacing: 10, 
       ),
-      itemCount: products.length, // Number of products in the list
+      itemCount: products.length, 
       itemBuilder: (context, index) {
         return NewProductItem(
           imagePath: products[index].imagePath,
@@ -183,7 +182,7 @@ class NewProductItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color.fromARGB(255, 255, 255, 255), // Set the background color of the product details to white
+        color: const Color.fromARGB(255, 255, 255, 255), 
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -201,13 +200,13 @@ class NewProductItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Product Image with increased height
+            
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
                 imagePath,
                 width: double.infinity,
-                height: 180, // Increased height of the image
+                height: 180, 
                 fit: BoxFit.cover,
               ),
             ),

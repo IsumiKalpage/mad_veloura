@@ -110,7 +110,7 @@ class RegisterScreen extends StatelessWidget {
                     // Handle registration action here
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF823434), // Button color set to #823434
+                    backgroundColor: Color(0xFF823434), 
                     padding: EdgeInsets.symmetric(horizontal: 80, vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

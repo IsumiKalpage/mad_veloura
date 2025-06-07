@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/components/topnavbar.dart'; // Import the TopNavbar
+import '../models/components/topnavbar.dart'; 
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -7,9 +7,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopNavbar(), // Use the TopNavbar in the appBar
+      appBar: TopNavbar(), 
       body: Container(
-        color: Colors.white, // Set background color of the page to white
+        color: Colors.white, 
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
@@ -74,11 +74,11 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              'User Name', // Replace with dynamic user name
+              'User Name', 
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             Text(
-              'user@example.com', // Replace with dynamic email
+              'user@example.com', 
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ],
@@ -101,9 +101,9 @@ class ProfileScreen extends StatelessWidget {
           leading: const Icon(Icons.brightness_6),
           title: const Text('Dark Mode'),
           trailing: Switch(
-            value: true, // Replace with actual dark mode state
+            value: true, 
             onChanged: (bool value) {
-              // Handle dark mode toggle
+
             },
           ),
         ),
@@ -126,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('Account Information'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
-            // Handle navigation to account info page
+            
           },
         ),
         ListTile(
@@ -134,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('Billing'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
-            // Handle navigation to billing page
+            
           },
         ),
       ],
@@ -156,7 +156,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('About Us'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
-            // Handle navigation to about us page
+            
           },
         ),
         ListTile(
@@ -164,7 +164,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('Privacy'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
-            // Handle navigation to privacy page
+            
           },
         ),
       ],
@@ -185,7 +185,7 @@ class ProfileScreen extends StatelessWidget {
           leading: const Icon(Icons.exit_to_app),
           title: const Text('Logout'),
           onTap: () {
-            // Handle logout action
+            
           },
         ),
       ],
@@ -208,7 +208,7 @@ class ProfileScreen extends StatelessWidget {
           subtitle: const Text('+1234567890'),
           trailing: const Icon(Icons.edit),
           onTap: () {
-            // Handle editing phone number
+            
           },
         ),
         ListTile(
@@ -217,7 +217,7 @@ class ProfileScreen extends StatelessWidget {
           subtitle: const Text('user@example.com'),
           trailing: const Icon(Icons.edit),
           onTap: () {
-            // Handle editing email address
+            
           },
         ),
       ],
@@ -239,7 +239,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('Change Password'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
-            // Handle password change
+           
           },
         ),
         ListTile(
@@ -247,7 +247,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('Enable Fingerprint'),
           trailing: const Icon(Icons.check_box_outline_blank),
           onTap: () {
-            // Handle fingerprint enable action
+            
           },
         ),
       ],
@@ -268,9 +268,9 @@ class ProfileScreen extends StatelessWidget {
           leading: const Icon(Icons.notifications),
           title: const Text('Email Notifications'),
           trailing: Switch(
-            value: true, // Replace with actual email notification state
+            value: true, 
             onChanged: (bool value) {
-              // Handle email notifications toggle
+              
             },
           ),
         ),
@@ -278,9 +278,9 @@ class ProfileScreen extends StatelessWidget {
           leading: const Icon(Icons.notifications_active),
           title: const Text('SMS Notifications'),
           trailing: Switch(
-            value: false, // Replace with actual SMS notification state
+            value: false, 
             onChanged: (bool value) {
-              // Handle SMS notifications toggle
+              
             },
           ),
         ),
@@ -303,7 +303,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('Google Account'),
           trailing: const Icon(Icons.check_circle),
           onTap: () {
-            // Handle navigation or unlinking Google account
+            
           },
         ),
         ListTile(
@@ -311,7 +311,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text('Facebook Account'),
           trailing: const Icon(Icons.check_circle),
           onTap: () {
-            // Handle navigation or unlinking Facebook account
+            
           },
         ),
       ],

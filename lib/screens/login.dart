@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mad_veloura/models/components/bottomnavbar.dart';
-import 'register.dart'; // Import the RegisterScreen
+import 'register.dart'; 
 // ignore: unused_import
-import 'package:mad_veloura/screens/home.dart'; // Import HomeScreen, which already includes BottomNavbar
-import '../models/user/user_list.dart'; // Import the user list model
+import 'package:mad_veloura/screens/home.dart'; 
+import '../models/user/user_list.dart'; 
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     bool isValidUser = users.any((user) => user.email == email && user.password == password);
 
     if (isValidUser) {
-      // If valid, navigate to BottomNavbar (which includes the BottomNavigationBar)
+      // If valid, navigate to BottomNavbar 
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const BottomNavbar()), // Navigate to BottomNavbar
