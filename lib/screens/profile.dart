@@ -6,61 +6,143 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get the screen orientation
+    var orientation = MediaQuery.of(context).orientation;
+
     return Scaffold(
-      appBar: TopNavbar(), 
-      body: Container(
-        color: Colors.white, 
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            // User Info Section
-            _buildUserInfo(),
-            const SizedBox(height: 20),
-
-            // Preferences Section
-            _buildPreferencesSection(),
-
-            const Divider(),
-
-            // Account Management Section
-            _buildAccountManagementSection(),
-
-            const Divider(),
-
-            // Additional Information Section
-            _buildAdditionalInfoSection(),
-
-            const Divider(),
-
-            // Account Actions Section
-            _buildAccountActionsSection(),
-
-            const Divider(),
-
-            // Contact Information Section
-            _buildContactInfoSection(),
-
-            const Divider(),
-
-            // Security Settings Section
-            _buildSecuritySettingsSection(),
-
-            const Divider(),
-
-            // Notification Preferences Section
-            _buildNotificationPreferencesSection(),
-
-            const Divider(),
-
-            // Linked Accounts Section
-            _buildLinkedAccountsSection(),
-          ],
+      appBar: TopNavbar(),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white, 
+          padding: const EdgeInsets.all(16.0),
+          child: orientation == Orientation.portrait ? _buildPortraitLayout() : _buildLandscapeLayout(context),
         ),
       ),
     );
   }
 
-  // User Info Section - Displays User Name and Email
+  // Portrait Layout
+  Widget _buildPortraitLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // User Info Section
+        _buildUserInfo(),
+        const SizedBox(height: 20),
+
+        // Preferences Section
+        _buildPreferencesSection(),
+
+        const Divider(),
+
+        // Account Management Section
+        _buildAccountManagementSection(),
+
+        const Divider(),
+
+        // Additional Information Section
+        _buildAdditionalInfoSection(),
+
+        const Divider(),
+
+        // Account Actions Section
+        _buildAccountActionsSection(),
+
+        const Divider(),
+
+        // Contact Information Section
+        _buildContactInfoSection(),
+
+        const Divider(),
+
+        // Security Settings Section
+        _buildSecuritySettingsSection(),
+
+        const Divider(),
+
+        // Notification Preferences Section
+        _buildNotificationPreferencesSection(),
+
+        const Divider(),
+
+        // Linked Accounts Section
+        _buildLinkedAccountsSection(),
+      ],
+    );
+  }
+
+  // Landscape Layout
+  Widget _buildLandscapeLayout(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: ListView(
+            children: [
+              // User Info Section
+              _buildUserInfo(),
+              const SizedBox(height: 20),
+
+              // Preferences Section
+              _buildPreferencesSection(),
+
+              const Divider(),
+
+              // Account Management Section
+              _buildAccountManagementSection(),
+
+              const Divider(),
+
+              // Additional Information Section
+              _buildAdditionalInfoSection(),
+
+              const Divider(),
+
+              // Account Actions Section
+              _buildAccountActionsSection(),
+
+              const Divider(),
+
+              // Contact Information Section
+              _buildContactInfoSection(),
+
+              const Divider(),
+
+              // Security Settings Section
+              _buildSecuritySettingsSection(),
+
+              const Divider(),
+
+              // Notification Preferences Section
+              _buildNotificationPreferencesSection(),
+
+              const Divider(),
+
+              // Linked Accounts Section
+              _buildLinkedAccountsSection(),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            color: Colors.grey[200], 
+            child: Column(
+              children: [
+                const Text(
+                  "Additional Content Here",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // User Info Section
   Widget _buildUserInfo() {
     return Row(
       children: [
@@ -87,7 +169,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Preferences Section - Includes Dark Mode
+  // Preferences Section
   Widget _buildPreferencesSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +183,7 @@ class ProfileScreen extends StatelessWidget {
           leading: const Icon(Icons.brightness_6),
           title: const Text('Dark Mode'),
           trailing: Switch(
-            value: true, 
+            value: false, 
             onChanged: (bool value) {},
             activeColor: Color.fromARGB(255, 169, 121, 121),
           ),
@@ -110,7 +192,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Account Management Section - Includes Account Info and Billing
+  // Account Management Section
   Widget _buildAccountManagementSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +218,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Additional Information Section - Includes About Us and Privacy
+  // Additional Information Section
   Widget _buildAdditionalInfoSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +244,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Account Actions Section - Includes Logout
+  // Account Actions Section
   Widget _buildAccountActionsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

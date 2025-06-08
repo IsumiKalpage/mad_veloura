@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import '../models/components/topnavbar.dart'; 
+import '../models/components/topnavbar.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Get the screen orientation
+    var orientation = MediaQuery.of(context).orientation;
+
+    // Determine the number of columns based on the screen orientation
+    int columns = orientation == Orientation.portrait ? 2 : 3;
+
     return Scaffold(
       appBar: TopNavbar(),
-      body: SingleChildScrollView( 
+      body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
           padding: const EdgeInsets.all(16.0),
@@ -25,7 +31,7 @@ class ProductsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               // SkinCare Section
               Text(
                 'SkinCare',
@@ -39,9 +45,9 @@ class ProductsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(), 
+                physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: columns,  // Dynamically set the number of columns
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
                   childAspectRatio: 0.6,
@@ -63,7 +69,7 @@ class ProductsScreen extends StatelessWidget {
                               name: _getSkinCareProductName(index),
                               price: _getSkinCareProductPrice(index),
                               rating: _getSkinCareProductRating(index),
-                              description: 'The AHA 30% + BHA 2% Peeling Solution is an at-home exfoliating facial that combines the power of alpha-hydroxy acids (AHA) and beta-hydroxy acids (BHA) to improve skin texture, reduce pore congestion, and address uneven skin tone. This high-strength peel is a recommended facial exfoliator for experienced users looking to achieve smoother, clearer skin. It features a Tasmanian pepperberry derivative, a known anti-irritant and is further supported with hyaluronic acid, pro-vitamin B5 and black carrot.',
+                              description: 'The AHA 30% + BHA 2% Peeling Solution is an at-home exfoliating facial...',
                               features: 'Targets - Textural Irregularities, Dullness, Uneven Skin Tone',
                               brand: 'The Ordinary',
                               deliveryCharge: 'LKR 350',
@@ -78,9 +84,9 @@ class ProductsScreen extends StatelessWidget {
                   );
                 },
               ),
-              
-              const SizedBox(height: 32), 
-              
+
+              const SizedBox(height: 32),
+
               // Cosmetics Section
               Text(
                 'Cosmetics',
@@ -94,9 +100,9 @@ class ProductsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(), 
+                physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: columns,  
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
                   childAspectRatio: 0.6,
@@ -118,8 +124,8 @@ class ProductsScreen extends StatelessWidget {
                               name: _getCosmeticsProductName(index),
                               price: _getCosmeticsProductPrice(index),
                               rating: _getCosmeticsProductRating(index),
-                              description: 'Glass-like gloss filled with moisture! Moisture Glow Lip Gloss',
-                              features: 'Makes your lips glossy,Maintain vivid colors,Makes your lips glossy and fluffy',
+                              description: 'Glass-like gloss filled with moisture!',
+                              features: 'Makes your lips glossy, Maintain vivid colors, Makes your lips glossy and fluffy',
                               brand: 'Hemish',
                               deliveryCharge: 'LKR 350',
                               authenticity: 'Guaranteed 100% Authentic Products',
@@ -133,9 +139,9 @@ class ProductsScreen extends StatelessWidget {
                   );
                 },
               ),
-              
-              const SizedBox(height: 32), 
-              
+
+              const SizedBox(height: 32),
+
               // Hair & Body Section
               Text(
                 'Hair & Body',
@@ -149,9 +155,9 @@ class ProductsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(), 
+                physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: columns,  
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
                   childAspectRatio: 0.6,
@@ -173,8 +179,8 @@ class ProductsScreen extends StatelessWidget {
                               name: _getHairBodyProductName(index),
                               price: _getHairBodyProductPrice(index),
                               rating: _getHairBodyProductRating(index),
-                              description: 'Nourish and cleanse dry, weak, or brittle hair with this scalp-tingling hair strengthening shampoo! Mielles Rosemary Mint Strengthening Shampoo was developed to gently cleanse your hair while providing key nutrients. With hair strengthening biotin and certified organic ingredients such as coconut and babassu seed oil, you can bring weak or brittle hair back from the brink.',
-                              features: 'Infused with biotin to encourage growth, Gently cleanses and protects hair, Smells great!',
+                              description: 'Nourish and cleanse dry, weak, or brittle hair...',
+                              features: 'Infused with biotin to encourage growth, Gently cleanses and protects hair',
                               brand: 'Brand Name',
                               deliveryCharge: 'LKR 350',
                               authenticity: 'Guaranteed 100% Authentic Products',
@@ -218,10 +224,10 @@ class ProductsScreen extends StatelessWidget {
 
   String _getSkinCareProductPrice(int index) {
     List<String> productPrices = [
-      'LKR 3,500', 
-      'LKR 5,500', 
+      'LKR 3,500',
+      'LKR 5,500',
       'LKR 7,500',
-      'LKR 8,500', 
+      'LKR 8,500',
     ];
     return productPrices[index];
   }
@@ -259,10 +265,10 @@ class ProductsScreen extends StatelessWidget {
 
   String _getCosmeticsProductPrice(int index) {
     List<String> productPrices = [
-      'LKR 1,200', 
-      'LKR 2,500', 
+      'LKR 1,200',
+      'LKR 2,500',
       'LKR 1,000',
-      'LKR 700', 
+      'LKR 700',
     ];
     return productPrices[index];
   }
@@ -300,10 +306,10 @@ class ProductsScreen extends StatelessWidget {
 
   String _getHairBodyProductPrice(int index) {
     List<String> productPrices = [
-      'LKR 800', 
-      'LKR 1,200', 
+      'LKR 800',
+      'LKR 1,200',
       'LKR 1,500',
-      'LKR 1,000', 
+      'LKR 1,000',
     ];
     return productPrices[index];
   }
@@ -347,8 +353,8 @@ class ProductCard extends StatelessWidget {
           children: [
             Image.asset(
               imageUrl,
-              width: double.infinity, 
-              height: 200, 
+              width: double.infinity,
+              height: 200,
               fit: BoxFit.cover,
             ),
             Padding(
@@ -470,21 +476,21 @@ class ProductDetailPage extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Text(
-                'Description:',
+                'Description: ',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(description),
               SizedBox(height: 16),
               Text(
-                'Features:',
+                'Features: ',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(features),
               SizedBox(height: 16),
               Text(
-                'Delivery Features:',
+                'Delivery Features: ',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),

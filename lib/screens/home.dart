@@ -7,20 +7,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopNavbar(), 
-      body: SingleChildScrollView( 
+      appBar: TopNavbar(),
+      body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,  // Ensures the background of the entire screen is white
+          color: Colors.white, 
           child: Column(
             children: [
               Image.asset(
-                'assets/images/banner.png', 
-                width: double.infinity, 
-                height: 200, 
-                fit: BoxFit.cover, 
+                'assets/images/banner.png',
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.cover,
               ),
-              const SizedBox(height: 20), 
-          
+              const SizedBox(height: 20),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
@@ -32,9 +31,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-          
               const NewArrivalsGrid(),
-
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -55,26 +52,23 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     const SizedBox(height: 20),
-                    
                     Image.asset(
-                      'assets/images/jap.webp', 
+                      'assets/images/jap.webp',
                       width: double.infinity,
                       height: 200,
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(height: 20),
-                    
                     ElevatedButton(
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                       child: Text(
                         'Shop Now',
                         style: TextStyle(
-                          color: Colors.white, 
+                          color: Colors.white,
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 183, 136, 136), 
+                        backgroundColor: Color.fromARGB(255, 183, 136, 136),
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                         textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -122,22 +116,27 @@ class NewArrivalsGrid extends StatelessWidget {
       ),
     ];
 
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(), 
-      shrinkWrap: true, 
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, 
-        childAspectRatio: 0.75, 
-        crossAxisSpacing: 10, 
-        mainAxisSpacing: 10, 
-      ),
-      itemCount: products.length, 
-      itemBuilder: (context, index) {
-        return NewProductItem(
-          imagePath: products[index].imagePath,
-          title: products[index].title,
-          price: products[index].price,
-          rating: products[index].rating,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
+        return GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            childAspectRatio: 0.75,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            return NewProductItem(
+              imagePath: products[index].imagePath,
+              title: products[index].title,
+              price: products[index].price,
+              rating: products[index].rating,
+            );
+          },
         );
       },
     );
@@ -177,7 +176,7 @@ class NewProductItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white, 
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -200,7 +199,7 @@ class NewProductItem extends StatelessWidget {
               child: Image.asset(
                 imagePath,
                 width: double.infinity,
-                height: 180, 
+                height: 180,
                 fit: BoxFit.cover,
               ),
             ),
