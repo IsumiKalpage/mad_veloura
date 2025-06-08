@@ -10,10 +10,9 @@ class HomeScreen extends StatelessWidget {
       appBar: TopNavbar(), 
       body: SingleChildScrollView( 
         child: Container(
-          color: Colors.white, 
+          color: Colors.white,  // Ensures the background of the entire screen is white
           child: Column(
             children: [
-              // Banner Image Section
               Image.asset(
                 'assets/images/banner.png', 
                 width: double.infinity, 
@@ -22,7 +21,6 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20), 
           
-              // New Arrivals Section
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
@@ -35,10 +33,8 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
           
-              // Grid of new products
               const NewArrivalsGrid(),
 
-              // Japanese Hair Care Section
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -99,7 +95,6 @@ class NewArrivalsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List of products
     final List<Product> products = [
       Product(
         imagePath: 'assets/images/airy.webp',
@@ -182,7 +177,7 @@ class NewProductItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color.fromARGB(255, 255, 255, 255), 
+        color: Colors.white, 
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -200,7 +195,6 @@ class NewProductItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
@@ -211,7 +205,6 @@ class NewProductItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            // Product Title
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
@@ -223,7 +216,6 @@ class NewProductItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-            // Product Price
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
@@ -236,7 +228,6 @@ class NewProductItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-            // Rating
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
