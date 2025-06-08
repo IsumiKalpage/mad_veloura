@@ -72,6 +72,10 @@ flutter:
     - assets/images/LAg.webp
     - assets/images/mascara.webp
     - assets/images/powder.webp
+    - assets/images/mielle.webp
+    - assets/images/rose.webp
+    - assets/images/cetaphil.webp
+    - assets/images/fino2.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

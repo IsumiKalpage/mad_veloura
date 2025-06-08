@@ -89,6 +89,39 @@ class ProductsScreen extends StatelessWidget {
                   );
                 },
               ),
+              
+              const SizedBox(height: 32), 
+              
+              // Hair & Body Section
+              Text(
+                'Hair & Body',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF744545),
+                  fontFamily: 'Roboto',
+                ),
+              ),
+              const SizedBox(height: 16),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(), 
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  childAspectRatio: 0.6,
+                ),
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return ProductCard(
+                    imageUrl: _getHairBodyImageUrl(index),
+                    name: _getHairBodyProductName(index),
+                    price: _getHairBodyProductPrice(index),
+                    rating: _getHairBodyProductRating(index),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -174,6 +207,47 @@ class ProductsScreen extends StatelessWidget {
       4.7,
       3.8,
       4.3,
+    ];
+    return productRatings[index];
+  }
+
+  // Hair & Body Products
+  String _getHairBodyImageUrl(int index) {
+    List<String> imageUrls = [
+      'assets/images/mielle.webp',
+      'assets/images/rose.webp',
+      'assets/images/cetaphil.webp',
+      'assets/images/fino2.webp',
+    ];
+    return imageUrls[index];
+  }
+
+  String _getHairBodyProductName(int index) {
+    List<String> productNames = [
+      'Mielle Rosemary Mint Strengthening Shampoo',
+      'Mielle Rosemary Mint Scalp & Hair Strengthening Oil',
+      'Cetaphil Gentle Exfoliating SA Lotion 237ml',
+      'Shiseido - Fino Premium Touch Shampoo 550ml',
+    ];
+    return productNames[index];
+  }
+
+  String _getHairBodyProductPrice(int index) {
+    List<String> productPrices = [
+      'LKR 800', 
+      'LKR 1,200', 
+      'LKR 1,500',
+      'LKR 1,000', 
+    ];
+    return productPrices[index];
+  }
+
+  double _getHairBodyProductRating(int index) {
+    List<double> productRatings = [
+      4.2,
+      4.6,
+      3.9,
+      4.5,
     ];
     return productRatings[index];
   }
