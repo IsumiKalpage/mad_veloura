@@ -8,36 +8,38 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopNavbar(),
-      body: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Products',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w200,
-                color: Color(0xFF744545),
-                fontFamily: 'Roboto',
+      body: SingleChildScrollView( 
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Products',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w200,
+                  color: Color(0xFF744545),
+                  fontFamily: 'Roboto',
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'SkinCare',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF744545),
-                fontFamily: 'Roboto',
+              const SizedBox(height: 16),
+              
+              // SkinCare Section
+              Text(
+                'SkinCare',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF744545),
+                  fontFamily: 'Roboto',
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: GridView.builder(
+              const SizedBox(height: 16),
+              GridView.builder(
                 shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(), 
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 16.0,
@@ -47,21 +49,55 @@ class ProductsScreen extends StatelessWidget {
                 itemCount: 4,
                 itemBuilder: (context, index) {
                   return ProductCard(
-                    imageUrl: _getImageUrl(index),
-                    name: _getProductName(index),
-                    price: _getProductPrice(index),
-                    rating: _getProductRating(index),
+                    imageUrl: _getSkinCareImageUrl(index),
+                    name: _getSkinCareProductName(index),
+                    price: _getSkinCareProductPrice(index),
+                    rating: _getSkinCareProductRating(index),
                   );
                 },
               ),
-            ),
-          ],
+              
+              const SizedBox(height: 32), 
+              
+              // Cosmetics Section
+              Text(
+                'Cosmetics',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF744545),
+                  fontFamily: 'Roboto',
+                ),
+              ),
+              const SizedBox(height: 16),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(), 
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  childAspectRatio: 0.6,
+                ),
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return ProductCard(
+                    imageUrl: _getCosmeticsImageUrl(index),
+                    name: _getCosmeticsProductName(index),
+                    price: _getCosmeticsProductPrice(index),
+                    rating: _getCosmeticsProductRating(index),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  String _getImageUrl(int index) {
+  // SkinCare Products
+  String _getSkinCareImageUrl(int index) {
     List<String> imageUrls = [
       'assets/images/aha.webp',
       'assets/images/anuaa.webp',
@@ -71,7 +107,7 @@ class ProductsScreen extends StatelessWidget {
     return imageUrls[index];
   }
 
-  String _getProductName(int index) {
+  String _getSkinCareProductName(int index) {
     List<String> productNames = [
       'The Ordinary AHA 30% + BHA 2% Peeling Solution',
       'ANUA Niacinamide 10% + TXA 4% Dark Spot Correcting Serum 30ml',
@@ -81,7 +117,7 @@ class ProductsScreen extends StatelessWidget {
     return productNames[index];
   }
 
-  String _getProductPrice(int index) {
+  String _getSkinCareProductPrice(int index) {
     List<String> productPrices = [
       'LKR 3,500', 
       'LKR 5,500', 
@@ -91,12 +127,53 @@ class ProductsScreen extends StatelessWidget {
     return productPrices[index];
   }
 
-  double _getProductRating(int index) {
+  double _getSkinCareProductRating(int index) {
     List<double> productRatings = [
       4.0,
       4.5,
       3.5,
       5.0,
+    ];
+    return productRatings[index];
+  }
+
+  // Cosmetics Products
+  String _getCosmeticsImageUrl(int index) {
+    List<String> imageUrls = [
+      'assets/images/lip.webp',
+      'assets/images/LAg.webp',
+      'assets/images/mascara.webp',
+      'assets/images/powder.webp',
+    ];
+    return imageUrls[index];
+  }
+
+  String _getCosmeticsProductName(int index) {
+    List<String> productNames = [
+      'Heimish Dailism Lip Gloss (Hemish)',
+      'LA Girl PRO Conceal HD Concealer',
+      'LA Girl Lift Off Mascara (LA Girl)',
+      'Makeup Revolution Loose Baking Powder- Translucent',
+    ];
+    return productNames[index];
+  }
+
+  String _getCosmeticsProductPrice(int index) {
+    List<String> productPrices = [
+      'LKR 1,200', 
+      'LKR 2,500', 
+      'LKR 1,000',
+      'LKR 700', 
+    ];
+    return productPrices[index];
+  }
+
+  double _getCosmeticsProductRating(int index) {
+    List<double> productRatings = [
+      4.0,
+      4.7,
+      3.8,
+      4.3,
     ];
     return productRatings[index];
   }

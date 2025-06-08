@@ -69,8 +69,9 @@ flutter:
     - assets/images/anuaa.webp
     - assets/images/anuac.webp
     - assets/images/anuaF.webp
-    - assets/images/COSRX.webp
-    - assets/images/Cosrx_Snail_Mucin.webp
+    - assets/images/LAg.webp
+    - assets/images/mascara.webp
+    - assets/images/powder.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
