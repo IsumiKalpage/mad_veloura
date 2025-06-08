@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/components/topnavbar.dart'; 
+import '../models/components/topnavbar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
       appBar: TopNavbar(),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white, 
+          color: Colors.white,
           child: Column(
             children: [
               Image.asset(
@@ -20,62 +20,50 @@ class HomeScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 20),
+              // New Arrivals Section 
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   'New Arrivals',
                   style: TextStyle(
                     fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w300,
+                    color: Color.fromARGB(255, 197, 116, 135),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               const NewArrivalsGrid(),
               const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Japanese Hair Care',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'GLOSSY HAIR STARTS HERE\n\n'
-                      'Transform dry, color treated, or unmanageable hair with our bestselling repair set powered by Royal Jelly and deep moisture-lock technology. Tame frizz, restore shine, and enjoy salon-soft results with zero salon appointments and zero stress. Trusted by 100,000+ women worldwide.',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 20),
-                    Image.asset(
-                      'assets/images/jap.webp',
-                      width: double.infinity,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Shop Now',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 183, 136, 136),
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                        textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
+              Image.asset(
+                'assets/images/sale.png',
+                width: double.infinity,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 20),
+              // For You Section 
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'For You',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w300,
+                    color: Color.fromARGB(255, 197, 116, 135),  
+                  ),
                 ),
               ),
+              const SizedBox(height: 10),
+              const ForYouGrid(),
+              const SizedBox(height: 20),
+              Image.asset(
+                'assets/images/sale2.png',
+                width: double.infinity,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -86,6 +74,65 @@ class HomeScreen extends StatelessWidget {
 
 class NewArrivalsGrid extends StatelessWidget {
   const NewArrivalsGrid({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Product> products = [
+      Product(
+        imagePath: 'assets/images/cetaphil.webp',
+        title: 'Cetaphil Gentle Exfoliating SA Lotion 237ml',
+        price: 'Rs. 7,750.00',
+        rating: 4.5,
+      ),
+      Product(
+        imagePath: 'assets/images/LAg.webp',
+        title: 'LA Girl PRO Conceal HD Concealer',
+        price: 'Rs. 6,350.00',
+        rating: 5.0,
+      ),
+      Product(
+        imagePath: 'assets/images/mascara.webp',
+        title: 'LA Girl Lift Off Mascara (LA Girl)',
+        price: 'Rs. 5,250.00',
+        rating: 5.0,
+      ),
+      Product(
+        imagePath: 'assets/images/anuaF.webp',
+        title: 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam 150ml',
+        price: 'Rs. 4,250.00',
+        rating: 4.0,
+      ),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
+        return GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            childAspectRatio: 0.75,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            return NewProductItem(
+              imagePath: products[index].imagePath,
+              title: products[index].title,
+              price: products[index].price,
+              rating: products[index].rating,
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class ForYouGrid extends StatelessWidget {
+  const ForYouGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
