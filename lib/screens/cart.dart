@@ -111,7 +111,7 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           if (cartItems.isNotEmpty)
             IconButton(
-              icon: const Icon(Icons.delete, color: Color.fromARGB(255, 70, 14, 10)),
+              icon: const Icon(Icons.delete, color: Colors.red),
               tooltip: 'Clear Cart',
               onPressed: _clearCart,
             ),
@@ -198,7 +198,7 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                     trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Color.fromARGB(255, 70, 14, 10)),
+                      icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () => _removeItem(index),
                     ),
                   ),

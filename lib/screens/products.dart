@@ -82,7 +82,29 @@ class ProductsScreen extends StatelessWidget {
           price: getPrice(index),
           rating: getRating(index),
           isDark: isDark,
-          onTap: () {},
+          onTap: index == 0
+              ? () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailPage(
+                        imageUrl: getImage(index),
+                        name: getName(index),
+                        brand: "ANUA",
+                        price: getPrice(index),
+                        rating: getRating(index),
+                        description: "This exfoliating solution helps improve skin texture, unclog pores, and promote even tone.",
+                        features: [
+                          "30% AHA and 2% BHA formula",
+                          "Targets dullness and congestion",
+                          "Smooths skin texture",
+                          "Minimizes pores",
+                        ],
+                      ),
+                    ),
+                  );
+                }
+              : null,
           onAddToCart: () {
             CartManager().addToCart(CartItem(
               name: getName(index),
@@ -98,83 +120,74 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  String _getSkinCareImageUrl(int index) {
-    return [
-      'assets/images/aha.webp',
-      'assets/images/anuaa.webp',
-      'assets/images/anuac.webp',
-      'assets/images/anuaF.webp',
-    ][index];
-  }
+  String _getSkinCareImageUrl(int index) => [
+    'assets/images/aha.webp',
+    'assets/images/anuaa.webp',
+    'assets/images/anuac.webp',
+    'assets/images/anuaF.webp',
+  ][index];
 
-  String _getSkinCareProductName(int index) {
-    return [
-      'The Ordinary AHA 30% + BHA 2% Peeling Solution',
-      'ANUA Niacinamide 10% + TXA 4% Dark Spot Correcting Serum 30ml',
-      'ANUA Heartleaf Pore Control Cleansing Oil 200ml',
-      'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam 150ml',
-    ][index];
-  }
+  String _getSkinCareProductName(int index) => [
+    'The Ordinary AHA 30% + BHA 2% Peeling Solution',
+    'ANUA Niacinamide 10% + TXA 4% Dark Spot Correcting Serum 30ml',
+    'ANUA Heartleaf Pore Control Cleansing Oil 200ml',
+    'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam 150ml',
+  ][index];
 
-  String _getSkinCareProductPrice(int index) {
-    return ['LKR 3,500', 'LKR 5,500', 'LKR 7,500', 'LKR 8,500'][index];
-  }
+  String _getSkinCareProductPrice(int index) => [
+    'LKR 3,500',
+    'LKR 5,500',
+    'LKR 7,500',
+    'LKR 8,500',
+  ][index];
 
-  double _getSkinCareProductRating(int index) {
-    return [4.0, 4.5, 3.5, 5.0][index];
-  }
+  double _getSkinCareProductRating(int index) => [4.0, 4.5, 3.5, 5.0][index];
 
-  String _getCosmeticsImageUrl(int index) {
-    return [
-      'assets/images/lip.webp',
-      'assets/images/LAg.webp',
-      'assets/images/mascara.webp',
-      'assets/images/powder.webp',
-    ][index];
-  }
+  String _getCosmeticsImageUrl(int index) => [
+    'assets/images/lip.webp',
+    'assets/images/LAg.webp',
+    'assets/images/mascara.webp',
+    'assets/images/powder.webp',
+  ][index];
 
-  String _getCosmeticsProductName(int index) {
-    return [
-      'Heimish Dailism Lip Gloss (Hemish)',
-      'LA Girl PRO Conceal HD Concealer',
-      'LA Girl Lift Off Mascara (LA Girl)',
-      'Makeup Revolution Loose Baking Powder- Translucent',
-    ][index];
-  }
+  String _getCosmeticsProductName(int index) => [
+    'Heimish Dailism Lip Gloss (Hemish)',
+    'LA Girl PRO Conceal HD Concealer',
+    'LA Girl Lift Off Mascara (LA Girl)',
+    'Makeup Revolution Loose Baking Powder- Translucent',
+  ][index];
 
-  String _getCosmeticsProductPrice(int index) {
-    return ['LKR 1,200', 'LKR 2,500', 'LKR 1,000', 'LKR 700'][index];
-  }
+  String _getCosmeticsProductPrice(int index) => [
+    'LKR 1,200',
+    'LKR 2,500',
+    'LKR 1,000',
+    'LKR 700',
+  ][index];
 
-  double _getCosmeticsProductRating(int index) {
-    return [4.0, 4.7, 3.8, 4.3][index];
-  }
+  double _getCosmeticsProductRating(int index) => [4.0, 4.7, 3.8, 4.3][index];
 
-  String _getHairBodyImageUrl(int index) {
-    return [
-      'assets/images/mielle.webp',
-      'assets/images/rose.webp',
-      'assets/images/cetaphil.webp',
-      'assets/images/fino2.webp',
-    ][index];
-  }
+  String _getHairBodyImageUrl(int index) => [
+    'assets/images/mielle.webp',
+    'assets/images/rose.webp',
+    'assets/images/cetaphil.webp',
+    'assets/images/fino2.webp',
+  ][index];
 
-  String _getHairBodyProductName(int index) {
-    return [
-      'Mielle Rosemary Mint Strengthening Shampoo',
-      'Mielle Rosemary Mint Scalp & Hair Strengthening Oil',
-      'Cetaphil Gentle Exfoliating SA Lotion 237ml',
-      'Shiseido - Fino Premium Touch Shampoo 550ml',
-    ][index];
-  }
+  String _getHairBodyProductName(int index) => [
+    'Mielle Rosemary Mint Strengthening Shampoo',
+    'Mielle Rosemary Mint Scalp & Hair Strengthening Oil',
+    'Cetaphil Gentle Exfoliating SA Lotion 237ml',
+    'Shiseido - Fino Premium Touch Shampoo 550ml',
+  ][index];
 
-  String _getHairBodyProductPrice(int index) {
-    return ['LKR 800', 'LKR 1,200', 'LKR 1,500', 'LKR 1,000'][index];
-  }
+  String _getHairBodyProductPrice(int index) => [
+    'LKR 800',
+    'LKR 1,200',
+    'LKR 1,500',
+    'LKR 1,000',
+  ][index];
 
-  double _getHairBodyProductRating(int index) {
-    return [4.2, 4.6, 3.9, 4.5][index];
-  }
+  double _getHairBodyProductRating(int index) => [4.2, 4.6, 3.9, 4.5][index];
 }
 
 class ProductCard extends StatelessWidget {
@@ -182,7 +195,7 @@ class ProductCard extends StatelessWidget {
   final String name;
   final String price;
   final double rating;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final VoidCallback onAddToCart;
   final bool isDark;
 
@@ -243,7 +256,7 @@ class ProductCard extends StatelessWidget {
                   SizedBox(height: 8.0),
                   ElevatedButton(
                     onPressed: onAddToCart,
-                    child: Text('Add to Cart'),
+                    child: Text('Add to Cart', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Color.fromARGB(255, 169, 121, 121),
@@ -253,6 +266,91 @@ class ProductCard extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProductDetailPage extends StatelessWidget {
+  final String imageUrl;
+  final String name;
+  final String brand;
+  final String price;
+  final double rating;
+  final String description;
+  final List<String> features;
+
+  const ProductDetailPage({
+    super.key,
+    required this.imageUrl,
+    required this.name,
+    required this.brand,
+    required this.price,
+    required this.rating,
+    required this.description,
+    required this.features,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = ThemeController().isDarkMode;
+
+    return Scaffold(
+      backgroundColor: isDark ? Colors.black : Colors.white,
+      appBar: AppBar(
+        backgroundColor: isDark ? Colors.black : Colors.white,
+        iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.black),
+        elevation: 0,
+        title: Text('Product Details', style: TextStyle(color: isDark ? Colors.white : Colors.black)),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(imageUrl, width: double.infinity, height: 250, fit: BoxFit.cover),
+            const SizedBox(height: 16),
+            Text(name, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+            const SizedBox(height: 8),
+            Text('Brand: $brand', style: TextStyle(fontSize: 16, color: isDark ? Colors.white70 : Colors.grey[700])),
+            const SizedBox(height: 8),
+            Text(price, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFFA97979))),
+            const SizedBox(height: 8),
+            Row(
+              children: List.generate(
+                5,
+                (index) => Icon(
+                  index < rating ? Icons.star : Icons.star_border,
+                  color: Colors.amber,
+                  size: 20,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text('Description', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black)),
+            const SizedBox(height: 8),
+            Text(description, style: TextStyle(fontSize: 14, color: isDark ? Colors.white70 : Colors.black87)),
+            const SizedBox(height: 16),
+            Text('Features', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black)),
+            const SizedBox(height: 8),
+            ...features.map((f) => Row(
+              children: [
+                const Icon(Icons.check, size: 16, color: Color(0xFFA97979)),
+                const SizedBox(width: 8),
+                Expanded(child: Text(f, style: TextStyle(color: isDark ? Colors.white70 : Colors.black))),
+              ],
+            )),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFA97979),
+                minimumSize: const Size(double.infinity, 45),
+              ),
+              child: const Text('Add to Cart', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
