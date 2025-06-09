@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import '../models/components/topnavbar.dart';
+import 'package:mad_veloura/models/cart/cart_manager.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Get the screen orientation
     var orientation = MediaQuery.of(context).orientation;
-
-    // Determine the number of columns based on the screen orientation
     int columns = orientation == Orientation.portrait ? 2 : 3;
 
     return Scaffold(
@@ -21,179 +19,17 @@ class ProductsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Products',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w200,
-                  color: Color(0xFF744545),
-                  fontFamily: 'Roboto',
-                ),
-              ),
-              const SizedBox(height: 16),
+              _sectionTitle('Products'),
+              _sectionTitle('SkinCare', small: true),
+              _buildGrid(context, columns, _getSkinCareImageUrl, _getSkinCareProductName, _getSkinCareProductPrice, _getSkinCareProductRating),
 
-              // SkinCare Section
-              Text(
-                'SkinCare',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF744545),
-                  fontFamily: 'Roboto',
-                ),
-              ),
-              const SizedBox(height: 16),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: columns,  // Dynamically set the number of columns
-                  crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 16.0,
-                  childAspectRatio: 0.6,
-                ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    imageUrl: _getSkinCareImageUrl(index),
-                    name: _getSkinCareProductName(index),
-                    price: _getSkinCareProductPrice(index),
-                    rating: _getSkinCareProductRating(index),
-                    onTap: () {
-                      if (index == 0) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetailPage(
-                              imageUrl: _getSkinCareImageUrl(index),
-                              name: _getSkinCareProductName(index),
-                              price: _getSkinCareProductPrice(index),
-                              rating: _getSkinCareProductRating(index),
-                              description: 'The AHA 30% + BHA 2% Peeling Solution is an at-home exfoliating facial...',
-                              features: 'Targets - Textural Irregularities, Dullness, Uneven Skin Tone',
-                              brand: 'The Ordinary',
-                              deliveryCharge: 'LKR 350',
-                              authenticity: 'Guaranteed 100% Authentic Products',
-                              origin: 'Imported from South Korea',
-                              securePayments: 'Secure payments',
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
+              SizedBox(height: 32),
+              _sectionTitle('Cosmetics', small: true),
+              _buildGrid(context, columns, _getCosmeticsImageUrl, _getCosmeticsProductName, _getCosmeticsProductPrice, _getCosmeticsProductRating),
 
-              const SizedBox(height: 32),
-
-              // Cosmetics Section
-              Text(
-                'Cosmetics',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF744545),
-                  fontFamily: 'Roboto',
-                ),
-              ),
-              const SizedBox(height: 16),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: columns,  
-                  crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 16.0,
-                  childAspectRatio: 0.6,
-                ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    imageUrl: _getCosmeticsImageUrl(index),
-                    name: _getCosmeticsProductName(index),
-                    price: _getCosmeticsProductPrice(index),
-                    rating: _getCosmeticsProductRating(index),
-                    onTap: () {
-                      if (index == 0) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetailPage(
-                              imageUrl: _getCosmeticsImageUrl(index),
-                              name: _getCosmeticsProductName(index),
-                              price: _getCosmeticsProductPrice(index),
-                              rating: _getCosmeticsProductRating(index),
-                              description: 'Glass-like gloss filled with moisture!',
-                              features: 'Makes your lips glossy, Maintain vivid colors, Makes your lips glossy and fluffy',
-                              brand: 'Hemish',
-                              deliveryCharge: 'LKR 350',
-                              authenticity: 'Guaranteed 100% Authentic Products',
-                              origin: 'Imported from South Korea',
-                              securePayments: 'Secure payments',
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
-
-              const SizedBox(height: 32),
-
-              // Hair & Body Section
-              Text(
-                'Hair & Body',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF744545),
-                  fontFamily: 'Roboto',
-                ),
-              ),
-              const SizedBox(height: 16),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: columns,  
-                  crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 16.0,
-                  childAspectRatio: 0.6,
-                ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    imageUrl: _getHairBodyImageUrl(index),
-                    name: _getHairBodyProductName(index),
-                    price: _getHairBodyProductPrice(index),
-                    rating: _getHairBodyProductRating(index),
-                    onTap: () {
-                      if (index == 0) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetailPage(
-                              imageUrl: _getHairBodyImageUrl(index),
-                              name: _getHairBodyProductName(index),
-                              price: _getHairBodyProductPrice(index),
-                              rating: _getHairBodyProductRating(index),
-                              description: 'Nourish and cleanse dry, weak, or brittle hair...',
-                              features: 'Infused with biotin to encourage growth, Gently cleanses and protects hair',
-                              brand: 'Brand Name',
-                              deliveryCharge: 'LKR 350',
-                              authenticity: 'Guaranteed 100% Authentic Products',
-                              origin: 'Imported from South Korea',
-                              securePayments: 'Secure payments',
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
+              SizedBox(height: 32),
+              _sectionTitle('Hair & Body', small: true),
+              _buildGrid(context, columns, _getHairBodyImageUrl, _getHairBodyProductName, _getHairBodyProductPrice, _getHairBodyProductRating),
             ],
           ),
         ),
@@ -201,136 +37,150 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  // SkinCare Products
+  Widget _sectionTitle(String title, {bool small = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: small ? 16 : 20,
+            fontWeight: small ? FontWeight.w400 : FontWeight.w200,
+            color: Color(0xFF744545),
+            fontFamily: 'Roboto',
+          ),
+        ),
+        SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _buildGrid(BuildContext context, int columns,
+    String Function(int) getImage,
+    String Function(int) getName,
+    String Function(int) getPrice,
+    double Function(int) getRating) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: columns,
+        crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
+        childAspectRatio: 0.6,
+      ),
+      itemCount: 4,
+      itemBuilder: (context, index) {
+        return ProductCard(
+          imageUrl: getImage(index),
+          name: getName(index),
+          price: getPrice(index),
+          rating: getRating(index),
+          onTap: () {}, 
+          onAddToCart: () {
+            CartManager().addToCart(CartItem(
+              name: getName(index),
+              imageUrl: getImage(index),
+              price: getPrice(index),
+            ));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Added to cart')),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  // --- Existing Product Data Methods Below ---
+
   String _getSkinCareImageUrl(int index) {
-    List<String> imageUrls = [
+    return [
       'assets/images/aha.webp',
       'assets/images/anuaa.webp',
       'assets/images/anuac.webp',
       'assets/images/anuaF.webp',
-    ];
-    return imageUrls[index];
+    ][index];
   }
 
   String _getSkinCareProductName(int index) {
-    List<String> productNames = [
+    return [
       'The Ordinary AHA 30% + BHA 2% Peeling Solution',
       'ANUA Niacinamide 10% + TXA 4% Dark Spot Correcting Serum 30ml',
       'ANUA Heartleaf Pore Control Cleansing Oil 200ml',
       'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam 150ml',
-    ];
-    return productNames[index];
+    ][index];
   }
 
   String _getSkinCareProductPrice(int index) {
-    List<String> productPrices = [
-      'LKR 3,500',
-      'LKR 5,500',
-      'LKR 7,500',
-      'LKR 8,500',
-    ];
-    return productPrices[index];
+    return ['LKR 3,500', 'LKR 5,500', 'LKR 7,500', 'LKR 8,500'][index];
   }
 
   double _getSkinCareProductRating(int index) {
-    List<double> productRatings = [
-      4.0,
-      4.5,
-      3.5,
-      5.0,
-    ];
-    return productRatings[index];
+    return [4.0, 4.5, 3.5, 5.0][index];
   }
 
-  // Cosmetics Products
   String _getCosmeticsImageUrl(int index) {
-    List<String> imageUrls = [
+    return [
       'assets/images/lip.webp',
       'assets/images/LAg.webp',
       'assets/images/mascara.webp',
       'assets/images/powder.webp',
-    ];
-    return imageUrls[index];
+    ][index];
   }
 
   String _getCosmeticsProductName(int index) {
-    List<String> productNames = [
+    return [
       'Heimish Dailism Lip Gloss (Hemish)',
       'LA Girl PRO Conceal HD Concealer',
       'LA Girl Lift Off Mascara (LA Girl)',
       'Makeup Revolution Loose Baking Powder- Translucent',
-    ];
-    return productNames[index];
+    ][index];
   }
 
   String _getCosmeticsProductPrice(int index) {
-    List<String> productPrices = [
-      'LKR 1,200',
-      'LKR 2,500',
-      'LKR 1,000',
-      'LKR 700',
-    ];
-    return productPrices[index];
+    return ['LKR 1,200', 'LKR 2,500', 'LKR 1,000', 'LKR 700'][index];
   }
 
   double _getCosmeticsProductRating(int index) {
-    List<double> productRatings = [
-      4.0,
-      4.7,
-      3.8,
-      4.3,
-    ];
-    return productRatings[index];
+    return [4.0, 4.7, 3.8, 4.3][index];
   }
 
-  // Hair & Body Products
   String _getHairBodyImageUrl(int index) {
-    List<String> imageUrls = [
+    return [
       'assets/images/mielle.webp',
       'assets/images/rose.webp',
       'assets/images/cetaphil.webp',
       'assets/images/fino2.webp',
-    ];
-    return imageUrls[index];
+    ][index];
   }
 
   String _getHairBodyProductName(int index) {
-    List<String> productNames = [
+    return [
       'Mielle Rosemary Mint Strengthening Shampoo',
       'Mielle Rosemary Mint Scalp & Hair Strengthening Oil',
       'Cetaphil Gentle Exfoliating SA Lotion 237ml',
       'Shiseido - Fino Premium Touch Shampoo 550ml',
-    ];
-    return productNames[index];
+    ][index];
   }
 
   String _getHairBodyProductPrice(int index) {
-    List<String> productPrices = [
-      'LKR 800',
-      'LKR 1,200',
-      'LKR 1,500',
-      'LKR 1,000',
-    ];
-    return productPrices[index];
+    return ['LKR 800', 'LKR 1,200', 'LKR 1,500', 'LKR 1,000'][index];
   }
 
   double _getHairBodyProductRating(int index) {
-    List<double> productRatings = [
-      4.2,
-      4.6,
-      3.9,
-      4.5,
-    ];
-    return productRatings[index];
+    return [4.2, 4.6, 3.9, 4.5][index];
   }
 }
 
+//  ProductCard to accept `onAddToCart`
 class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String name;
   final String price;
   final double rating;
   final VoidCallback onTap;
+  final VoidCallback onAddToCart;
 
   const ProductCard({
     required this.imageUrl,
@@ -338,6 +188,7 @@ class ProductCard extends StatelessWidget {
     required this.price,
     required this.rating,
     required this.onTap,
+    required this.onAddToCart,
   });
 
   @override
@@ -351,36 +202,15 @@ class ProductCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(
-              imageUrl,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
-            ),
+            Image.asset(imageUrl, width: double.infinity, height: 200, fit: BoxFit.cover),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w200,
-                      color: Colors.black,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  Text(name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w200), maxLines: 2, overflow: TextOverflow.ellipsis),
                   SizedBox(height: 8.5),
-                  Text(
-                    price,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  Text(price, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey)),
                   SizedBox(height: 9.0),
                   Row(
                     children: List.generate(
@@ -394,7 +224,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   SizedBox(height: 8.0),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: onAddToCart,
                     child: Text('Add to Cart'),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -407,110 +237,6 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProductDetailPage extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String price;
-  final double rating;
-  final String description;
-  final String features;
-  final String brand;
-  final String deliveryCharge;
-  final String authenticity;
-  final String origin;
-  final String securePayments;
-
-  const ProductDetailPage({
-    required this.imageUrl,
-    required this.name,
-    required this.price,
-    required this.rating,
-    required this.description,
-    required this.features,
-    required this.brand,
-    required this.deliveryCharge,
-    required this.authenticity,
-    required this.origin,
-    required this.securePayments,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(name)),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.asset(imageUrl, width: 250, height: 250, fit: BoxFit.cover),
-              ),
-              SizedBox(height: 16),
-              Text(
-                name,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Brand: $brand',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
-              ),
-              SizedBox(height: 8),
-              Row(
-                children: List.generate(
-                  5,
-                  (index) => Icon(
-                    index < rating ? Icons.star : Icons.star_border,
-                    color: Colors.amber,
-                    size: 17.0,
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Description: ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(description),
-              SizedBox(height: 16),
-              Text(
-                'Features: ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(features),
-              SizedBox(height: 16),
-              Text(
-                'Delivery Features: ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text('Delivery Charge: $deliveryCharge'),
-              Text('Authenticity: $authenticity'),
-              Text('Origin: $origin'),
-              Text('Secure Payments: $securePayments'),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Add to Cart'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Color.fromARGB(255, 169, 121, 121),
-                  minimumSize: Size(double.infinity, 36),
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
