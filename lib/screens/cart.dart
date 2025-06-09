@@ -44,6 +44,13 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  void _clearCart() {
+    setState(() {
+      _cartManager.clearCart();
+      _quantities.clear();
+    });
+  }
+
   int _parsePrice(String priceString) {
     return int.tryParse(priceString.replaceAll(RegExp(r'[^\d]'), '')) ?? 0;
   }
@@ -88,8 +95,32 @@ class _CartScreenState extends State<CartScreen> {
     final isDark = ThemeController().isDarkMode;
 
     return Scaffold(
-      appBar: TopNavbar(),
       backgroundColor: isDark ? Colors.black : Colors.white,
+      appBar: AppBar(
+        backgroundColor: isDark ? Colors.black : Colors.white,
+        elevation: 0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu, color: Color(0xFF744545)),
+            onPressed: () {},
+          ),
+        ),
+        title: Center(
+          child: Image.asset('assets/images/logo.png', height: 40),
+        ),
+        actions: [
+          if (cartItems.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.delete, color: Color.fromARGB(255, 70, 14, 10)),
+              tooltip: 'Clear Cart',
+              onPressed: _clearCart,
+            ),
+          IconButton(
+            icon: const Icon(Icons.account_circle, color: Color(0xFF744545), size: 30),
+            onPressed: () {},
+          ),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: cartItems.isNotEmpty
           ? FloatingActionButton.extended(
@@ -167,7 +198,7 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                     trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
+                      icon: const Icon(Icons.delete, color: Color.fromARGB(255, 70, 14, 10)),
                       onPressed: () => _removeItem(index),
                     ),
                   ),
