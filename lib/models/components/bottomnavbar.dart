@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mad_veloura/screens/home.dart'; 
-import 'package:mad_veloura/screens/products.dart'; 
-import 'package:mad_veloura/screens/cart.dart'; 
-import 'package:mad_veloura/screens/profile.dart'; 
-
+import 'package:mad_veloura/screens/home.dart';
+import 'package:mad_veloura/screens/products.dart';
+import 'package:mad_veloura/screens/cart.dart';
+import 'package:mad_veloura/screens/profile.dart';
+import 'package:mad_veloura/models/theme/theme_controller.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});
@@ -13,7 +13,7 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  int _currentIndex = 0; 
+  int _currentIndex = 0;
 
   final List<Widget> _screens = [
     const HomeScreen(),
@@ -22,25 +22,28 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const ProfileScreen(),
   ];
 
-  // Method to handle tab change
   void _onTabTapped(int index) {
     setState(() {
-      _currentIndex = index; 
+      _currentIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDark = ThemeController().isDarkMode;
+
     return Scaffold(
-      body: _screens[_currentIndex], 
+      backgroundColor: isDark ? Colors.black : Colors.white,
+      body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: _onTabTapped, 
-        backgroundColor: Colors.white, 
-        selectedItemColor: Color(0xFF744545), 
-        unselectedItemColor: Colors.grey[600],
+        onTap: _onTabTapped,
+        backgroundColor: isDark ? Colors.black : Colors.white,
+        selectedItemColor: const Color(0xFF744545), // maroon for both themes
+        unselectedItemColor: isDark ? Colors.white : Colors.grey[600],
         showSelectedLabels: true,
         showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

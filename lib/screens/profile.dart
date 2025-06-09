@@ -1,149 +1,74 @@
 import 'package:flutter/material.dart';
-import '../models/components/topnavbar.dart'; 
+import '../models/components/topnavbar.dart';
+import 'package:mad_veloura/models/theme/theme_controller.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _isDarkMode = ThemeController().isDarkMode;
+
+  @override
   Widget build(BuildContext context) {
-    // Get the screen orientation
     var orientation = MediaQuery.of(context).orientation;
+    final isDark = _isDarkMode;
 
     return Scaffold(
       appBar: TopNavbar(),
+      backgroundColor: isDark ? Colors.black : Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white, 
+          color: isDark ? Colors.black : Colors.white,
           padding: const EdgeInsets.all(16.0),
-          child: orientation == Orientation.portrait ? _buildPortraitLayout() : _buildLandscapeLayout(context),
+          child: orientation == Orientation.portrait
+              ? _buildPortraitLayout(isDark)
+              : _buildLandscapeLayout(context, isDark),
         ),
       ),
     );
   }
 
-  // Portrait Layout
-  Widget _buildPortraitLayout() {
+  Widget _buildPortraitLayout(bool isDark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // User Info Section
-        _buildUserInfo(),
-        const SizedBox(height: 20),
-
-        // Preferences Section
-        _buildPreferencesSection(),
-
-        const Divider(),
-
-        // Account Management Section
-        _buildAccountManagementSection(),
-
-        const Divider(),
-
-        // Additional Information Section
-        _buildAdditionalInfoSection(),
-
-        const Divider(),
-
-        // Account Actions Section
-        _buildAccountActionsSection(),
-
-        const Divider(),
-
-        // Contact Information Section
-        _buildContactInfoSection(),
-
-        const Divider(),
-
-        // Security Settings Section
-        _buildSecuritySettingsSection(),
-
-        const Divider(),
-
-        // Notification Preferences Section
-        _buildNotificationPreferencesSection(),
-
-        const Divider(),
-
-        // Linked Accounts Section
-        _buildLinkedAccountsSection(),
-      ],
+      children: _buildProfileSections(isDark),
     );
   }
 
-  // Landscape Layout
-  Widget _buildLandscapeLayout(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 2,
-          child: ListView(
-            children: [
-              // User Info Section
-              _buildUserInfo(),
-              const SizedBox(height: 20),
-
-              // Preferences Section
-              _buildPreferencesSection(),
-
-              const Divider(),
-
-              // Account Management Section
-              _buildAccountManagementSection(),
-
-              const Divider(),
-
-              // Additional Information Section
-              _buildAdditionalInfoSection(),
-
-              const Divider(),
-
-              // Account Actions Section
-              _buildAccountActionsSection(),
-
-              const Divider(),
-
-              // Contact Information Section
-              _buildContactInfoSection(),
-
-              const Divider(),
-
-              // Security Settings Section
-              _buildSecuritySettingsSection(),
-
-              const Divider(),
-
-              // Notification Preferences Section
-              _buildNotificationPreferencesSection(),
-
-              const Divider(),
-
-              // Linked Accounts Section
-              _buildLinkedAccountsSection(),
-            ],
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            color: Colors.grey[200], 
-            child: Column(
-              children: [
-                const Text(
-                  "Additional Content Here",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+  Widget _buildLandscapeLayout(BuildContext context, bool isDark) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _buildProfileSections(isDark),
     );
   }
 
-  // User Info Section
-  Widget _buildUserInfo() {
+  List<Widget> _buildProfileSections(bool isDark) {
+    return [
+      _buildUserInfo(isDark),
+      const SizedBox(height: 20),
+      _buildPreferencesSection(isDark),
+      const Divider(),
+      _buildAccountManagementSection(isDark),
+      const Divider(),
+      _buildAdditionalInfoSection(isDark),
+      const Divider(),
+      _buildAccountActionsSection(isDark),
+      const Divider(),
+      _buildContactInfoSection(isDark),
+      const Divider(),
+      _buildSecuritySettingsSection(isDark),
+      const Divider(),
+      _buildNotificationPreferencesSection(isDark),
+      const Divider(),
+      _buildLinkedAccountsSection(isDark),
+    ];
+  }
+
+  Widget _buildUserInfo(bool isDark) {
     return Row(
       children: [
         CircleAvatar(
@@ -154,14 +79,14 @@ class ProfileScreen extends StatelessWidget {
         SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
-              'User Name', 
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              'User Name',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black),
             ),
             Text(
-              'user@example.com', 
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              'user@example.com',
+              style: TextStyle(fontSize: 14, color: isDark ? Colors.white70 : Colors.grey),
             ),
           ],
         ),
@@ -169,22 +94,26 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Preferences Section
-  Widget _buildPreferencesSection() {
+  Widget _buildPreferencesSection(bool isDark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Preferences',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black),
         ),
         const SizedBox(height: 10),
         ListTile(
-          leading: const Icon(Icons.brightness_6),
-          title: const Text('Dark Mode'),
+          leading: Icon(Icons.brightness_6, color: isDark ? Colors.white : Colors.black),
+          title: Text('Dark Mode', style: TextStyle(color: isDark ? Colors.white : Colors.black)),
           trailing: Switch(
-            value: false, 
-            onChanged: (bool value) {},
+            value: _isDarkMode,
+            onChanged: (bool value) {
+              setState(() {
+                _isDarkMode = value;
+                ThemeController().set(value);
+              });
+            },
             activeColor: Color.fromARGB(255, 169, 121, 121),
           ),
         ),
@@ -192,186 +121,97 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Account Management Section
-  Widget _buildAccountManagementSection() {
+  Widget _buildAccountManagementSection(bool isDark) {
+    return _buildSectionWithTiles(isDark, 'Account Management', [
+      _buildTile(Icons.account_circle, 'Account Information', isDark),
+      _buildTile(Icons.credit_card, 'Billing', isDark),
+    ]);
+  }
+
+  Widget _buildAdditionalInfoSection(bool isDark) {
+    return _buildSectionWithTiles(isDark, 'More Information', [
+      _buildTile(Icons.info, 'About Us', isDark),
+      _buildTile(Icons.security, 'Privacy', isDark),
+    ]);
+  }
+
+  Widget _buildAccountActionsSection(bool isDark) {
+    return _buildSectionWithTiles(isDark, 'Account Actions', [
+      ListTile(
+        leading: Icon(Icons.exit_to_app, color: isDark ? Colors.white : Colors.black),
+        title: Text('Logout', style: TextStyle(color: isDark ? Colors.white : Colors.black)),
+        onTap: () {},
+      ),
+    ]);
+  }
+
+  Widget _buildContactInfoSection(bool isDark) {
+    return _buildSectionWithTiles(isDark, 'Contact Information', [
+      _buildSubtitleTile(Icons.phone, 'Phone Number', '+1234567890', isDark),
+      _buildSubtitleTile(Icons.email, 'Email Address', 'user@example.com', isDark),
+    ]);
+  }
+
+  Widget _buildSecuritySettingsSection(bool isDark) {
+    return _buildSectionWithTiles(isDark, 'Security Settings', [
+      _buildTile(Icons.lock, 'Change Password', isDark),
+      _buildTile(Icons.fingerprint, 'Enable Fingerprint', isDark, trailing: Icon(Icons.check_box_outline_blank, color: isDark ? Colors.white : Colors.black)),
+    ]);
+  }
+
+  Widget _buildNotificationPreferencesSection(bool isDark) {
+    return _buildSectionWithTiles(isDark, 'Notification Preferences', [
+      _buildSwitchTile(Icons.notifications, 'Email Notifications', true, isDark),
+      _buildSwitchTile(Icons.notifications_active, 'SMS Notifications', false, isDark),
+    ]);
+  }
+
+  Widget _buildLinkedAccountsSection(bool isDark) {
+    return _buildSectionWithTiles(isDark, 'Linked Accounts', [
+      _buildTile(Icons.account_circle, 'Google Account', isDark, trailing: Icon(Icons.check_circle, color: isDark ? Colors.white : Colors.black)),
+      _buildTile(Icons.account_balance_wallet, 'Facebook Account', isDark, trailing: Icon(Icons.check_circle, color: isDark ? Colors.white : Colors.black)),
+    ]);
+  }
+
+  Widget _buildSectionWithTiles(bool isDark, String title, List<Widget> tiles) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Account Management',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
+        Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
         const SizedBox(height: 10),
-        ListTile(
-          leading: const Icon(Icons.account_circle),
-          title: const Text('Account Information'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: const Icon(Icons.credit_card),
-          title: const Text('Billing'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {},
-        ),
+        ...tiles,
       ],
     );
   }
 
-  // Additional Information Section
-  Widget _buildAdditionalInfoSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'More Information',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        ListTile(
-          leading: const Icon(Icons.info),
-          title: const Text('About Us'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: const Icon(Icons.security),
-          title: const Text('Privacy'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {},
-        ),
-      ],
+  Widget _buildTile(IconData icon, String title, bool isDark, {Widget? trailing}) {
+    return ListTile(
+      leading: Icon(icon, color: isDark ? Colors.white : Colors.black),
+      title: Text(title, style: TextStyle(color: isDark ? Colors.white : Colors.black)),
+      trailing: trailing ?? Icon(Icons.arrow_forward, color: isDark ? Colors.white : Colors.black),
+      onTap: () {},
     );
   }
 
-  // Account Actions Section
-  Widget _buildAccountActionsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Account Actions',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        ListTile(
-          leading: const Icon(Icons.exit_to_app),
-          title: const Text('Logout'),
-          onTap: () {},
-        ),
-      ],
+  Widget _buildSubtitleTile(IconData icon, String title, String subtitle, bool isDark) {
+    return ListTile(
+      leading: Icon(icon, color: isDark ? Colors.white : Colors.black),
+      title: Text(title, style: TextStyle(color: isDark ? Colors.white : Colors.black)),
+      subtitle: Text(subtitle, style: TextStyle(color: isDark ? Colors.white70 : Colors.grey)),
+      trailing: Icon(Icons.edit, color: isDark ? Colors.white : Colors.black),
+      onTap: () {},
     );
   }
 
-  // Contact Information Section
-  Widget _buildContactInfoSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Contact Information',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        ListTile(
-          leading: const Icon(Icons.phone),
-          title: const Text('Phone Number'),
-          subtitle: const Text('+1234567890'),
-          trailing: const Icon(Icons.edit),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: const Icon(Icons.email),
-          title: const Text('Email Address'),
-          subtitle: const Text('user@example.com'),
-          trailing: const Icon(Icons.edit),
-          onTap: () {},
-        ),
-      ],
-    );
-  }
-
-  // Security Settings Section
-  Widget _buildSecuritySettingsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Security Settings',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        ListTile(
-          leading: const Icon(Icons.lock),
-          title: const Text('Change Password'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: const Icon(Icons.fingerprint),
-          title: const Text('Enable Fingerprint'),
-          trailing: const Icon(Icons.check_box_outline_blank),
-          onTap: () {},
-        ),
-      ],
-    );
-  }
-
-  // Notification Preferences Section
-  Widget _buildNotificationPreferencesSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Notification Preferences',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        ListTile(
-          leading: const Icon(Icons.notifications),
-          title: const Text('Email Notifications'),
-          trailing: Switch(
-            value: true, 
-            onChanged: (bool value) {},
-            activeColor: Color.fromARGB(255, 169, 121, 121),
-          ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.notifications_active),
-          title: const Text('SMS Notifications'),
-          trailing: Switch(
-            value: false, 
-            onChanged: (bool value) {},
-            activeColor: Color.fromARGB(255, 169, 121, 121),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Linked Accounts Section
-  Widget _buildLinkedAccountsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Linked Accounts',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        ListTile(
-          leading: const Icon(Icons.account_circle),
-          title: const Text('Google Account'),
-          trailing: const Icon(Icons.check_circle),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: const Icon(Icons.account_balance_wallet),
-          title: const Text('Facebook Account'),
-          trailing: const Icon(Icons.check_circle),
-          onTap: () {},
-        ),
-      ],
+  Widget _buildSwitchTile(IconData icon, String title, bool value, bool isDark) {
+    return ListTile(
+      leading: Icon(icon, color: isDark ? Colors.white : Colors.black),
+      title: Text(title, style: TextStyle(color: isDark ? Colors.white : Colors.black)),
+      trailing: Switch(
+        value: value,
+        onChanged: (_) {},
+        activeColor: Color.fromARGB(255, 169, 121, 121),
+      ),
     );
   }
 }

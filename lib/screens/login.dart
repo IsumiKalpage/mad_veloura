@@ -173,7 +173,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: IconButton(
                     icon: Image.asset('assets/images/google.png'), 
                     onPressed: () {
-                      // Handle Google login
                     },
                   ),
                 ),

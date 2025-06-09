@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/components/topnavbar.dart';
 import 'package:mad_veloura/models/cart/cart_manager.dart';
+import 'package:mad_veloura/models/theme/theme_controller.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key});
@@ -9,27 +10,27 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;
     int columns = orientation == Orientation.portrait ? 2 : 3;
+    final isDark = ThemeController().isDarkMode;
 
     return Scaffold(
       appBar: TopNavbar(),
+      backgroundColor: isDark ? Colors.black : Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
+          color: isDark ? Colors.black : Colors.white,
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _sectionTitle('Products'),
-              _sectionTitle('SkinCare', small: true),
-              _buildGrid(context, columns, _getSkinCareImageUrl, _getSkinCareProductName, _getSkinCareProductPrice, _getSkinCareProductRating),
-
+              _sectionTitle('Products', isDark),
+              _sectionTitle('SkinCare', isDark, small: true),
+              _buildGrid(context, columns, _getSkinCareImageUrl, _getSkinCareProductName, _getSkinCareProductPrice, _getSkinCareProductRating, isDark),
               SizedBox(height: 32),
-              _sectionTitle('Cosmetics', small: true),
-              _buildGrid(context, columns, _getCosmeticsImageUrl, _getCosmeticsProductName, _getCosmeticsProductPrice, _getCosmeticsProductRating),
-
+              _sectionTitle('Cosmetics', isDark, small: true),
+              _buildGrid(context, columns, _getCosmeticsImageUrl, _getCosmeticsProductName, _getCosmeticsProductPrice, _getCosmeticsProductRating, isDark),
               SizedBox(height: 32),
-              _sectionTitle('Hair & Body', small: true),
-              _buildGrid(context, columns, _getHairBodyImageUrl, _getHairBodyProductName, _getHairBodyProductPrice, _getHairBodyProductRating),
+              _sectionTitle('Hair & Body', isDark, small: true),
+              _buildGrid(context, columns, _getHairBodyImageUrl, _getHairBodyProductName, _getHairBodyProductPrice, _getHairBodyProductRating, isDark),
             ],
           ),
         ),
@@ -37,7 +38,7 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget _sectionTitle(String title, {bool small = false}) {
+  Widget _sectionTitle(String title, bool isDark, {bool small = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,7 +47,7 @@ class ProductsScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: small ? 16 : 20,
             fontWeight: small ? FontWeight.w400 : FontWeight.w200,
-            color: Color(0xFF744545),
+            color: isDark ? Colors.white : Color(0xFF744545),
             fontFamily: 'Roboto',
           ),
         ),
@@ -55,11 +56,15 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGrid(BuildContext context, int columns,
+  Widget _buildGrid(
+    BuildContext context,
+    int columns,
     String Function(int) getImage,
     String Function(int) getName,
     String Function(int) getPrice,
-    double Function(int) getRating) {
+    double Function(int) getRating,
+    bool isDark,
+  ) {
     return GridView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -76,7 +81,8 @@ class ProductsScreen extends StatelessWidget {
           name: getName(index),
           price: getPrice(index),
           rating: getRating(index),
-          onTap: () {}, 
+          isDark: isDark,
+          onTap: () {},
           onAddToCart: () {
             CartManager().addToCart(CartItem(
               name: getName(index),
@@ -91,8 +97,6 @@ class ProductsScreen extends StatelessWidget {
       },
     );
   }
-
-  // --- Existing Product Data Methods Below ---
 
   String _getSkinCareImageUrl(int index) {
     return [
@@ -173,7 +177,6 @@ class ProductsScreen extends StatelessWidget {
   }
 }
 
-//  ProductCard to accept `onAddToCart`
 class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String name;
@@ -181,6 +184,7 @@ class ProductCard extends StatelessWidget {
   final double rating;
   final VoidCallback onTap;
   final VoidCallback onAddToCart;
+  final bool isDark;
 
   const ProductCard({
     required this.imageUrl,
@@ -189,6 +193,7 @@ class ProductCard extends StatelessWidget {
     required this.rating,
     required this.onTap,
     required this.onAddToCart,
+    required this.isDark,
   });
 
   @override
@@ -196,6 +201,7 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        color: isDark ? Colors.grey[850] : Colors.white,
         elevation: 4.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -208,9 +214,21 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w200), maxLines: 2, overflow: TextOverflow.ellipsis),
+                  Text(name,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w200,
+                        color: isDark ? Colors.white : Colors.black,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis),
                   SizedBox(height: 8.5),
-                  Text(price, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey)),
+                  Text(price,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: isDark ? Colors.grey[300] : Colors.grey,
+                      )),
                   SizedBox(height: 9.0),
                   Row(
                     children: List.generate(

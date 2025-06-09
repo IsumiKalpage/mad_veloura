@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/components/topnavbar.dart';
+import 'package:mad_veloura/models/theme/theme_controller.dart';
 import 'package:mad_veloura/models/cart/cart_manager.dart';
 
 class CartScreen extends StatefulWidget {
@@ -65,14 +66,16 @@ class _CartScreenState extends State<CartScreen> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Cart Summary'),
+        backgroundColor: ThemeController().isDarkMode ? Colors.grey[900] : Colors.white,
+        title: Text('Cart Summary', style: TextStyle(color: ThemeController().isDarkMode ? Colors.white : Colors.black)),
         content: Text(
           'Total Items: $totalItems\nTotal Cost: ${_formatPrice(totalCost)}',
+          style: TextStyle(color: ThemeController().isDarkMode ? Colors.white70 : Colors.black87),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Close'),
+            child: Text('Close', style: TextStyle(color: ThemeController().isDarkMode ? Colors.white : Colors.black)),
           ),
         ],
       ),
@@ -82,24 +85,25 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final cartItems = _cartManager.cartItems;
+    final isDark = ThemeController().isDarkMode;
 
     return Scaffold(
       appBar: TopNavbar(),
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.black : Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: cartItems.isNotEmpty
           ? FloatingActionButton.extended(
               onPressed: _showCartSummary,
-              backgroundColor: Color.fromARGB(255, 169, 121, 121),
-              icon: Icon(Icons.receipt_long),
-              label: Text('Cart Summary'),
+              backgroundColor: const Color.fromARGB(255, 169, 121, 121),
+              icon: const Icon(Icons.receipt_long),
+              label: const Text('Cart Summary'),
             )
           : null,
       body: cartItems.isEmpty
-          ? const Center(
+          ? Center(
               child: Text(
                 'Your Cart is Empty!',
-                style: TextStyle(fontSize: 24),
+                style: TextStyle(fontSize: 24, color: isDark ? Colors.white : Colors.black),
               ),
             )
           : ListView.builder(
@@ -113,6 +117,7 @@ class _CartScreenState extends State<CartScreen> {
 
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 8),
+                  color: isDark ? Colors.grey[900] : Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -133,7 +138,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     title: Text(
                       item.name,
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: isDark ? Colors.white : Colors.black),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +146,7 @@ class _CartScreenState extends State<CartScreen> {
                         Text(
                           _formatPrice(totalPrice),
                           style: TextStyle(
-                            color: Colors.grey[800],
+                            color: isDark ? Colors.grey[300] : Colors.grey[800],
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -149,12 +154,12 @@ class _CartScreenState extends State<CartScreen> {
                         Row(
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
+                              icon: Icon(Icons.remove_circle_outline, color: isDark ? Colors.white : Colors.black),
                               onPressed: () => _decrementQuantity(item.name),
                             ),
-                            Text('$quantity', style: const TextStyle(fontSize: 16)),
+                            Text('$quantity', style: TextStyle(fontSize: 16, color: isDark ? Colors.white : Colors.black)),
                             IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
+                              icon: Icon(Icons.add_circle_outline, color: isDark ? Colors.white : Colors.black),
                               onPressed: () => _incrementQuantity(item.name),
                             ),
                           ],
