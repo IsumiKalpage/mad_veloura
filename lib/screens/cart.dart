@@ -51,6 +51,34 @@ class _CartScreenState extends State<CartScreen> {
     return 'LKR ${price.toString().replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',')}';
   }
 
+  void _showCartSummary() {
+    final cartItems = _cartManager.cartItems;
+    int totalItems = 0;
+    int totalCost = 0;
+
+    for (var item in cartItems) {
+      final quantity = _quantities[item.name] ?? 1;
+      totalItems += quantity;
+      totalCost += _parsePrice(item.price) * quantity;
+    }
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Cart Summary'),
+        content: Text(
+          'Total Items: $totalItems\nTotal Cost: ${_formatPrice(totalCost)}',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartItems = _cartManager.cartItems;
@@ -58,6 +86,15 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: TopNavbar(),
       backgroundColor: Colors.white,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: cartItems.isNotEmpty
+          ? FloatingActionButton.extended(
+              onPressed: _showCartSummary,
+              backgroundColor: Color.fromARGB(255, 169, 121, 121),
+              icon: Icon(Icons.receipt_long),
+              label: Text('Cart Summary'),
+            )
+          : null,
       body: cartItems.isEmpty
           ? const Center(
               child: Text(
