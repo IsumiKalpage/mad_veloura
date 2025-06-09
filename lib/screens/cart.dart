@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/components/topnavbar.dart';
+import 'package:mad_veloura/models/components/topnavbar.dart';
 import 'package:mad_veloura/models/theme/theme_controller.dart';
 import 'package:mad_veloura/models/cart/cart_manager.dart';
 
